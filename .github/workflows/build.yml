@@ -22,9 +22,9 @@ jobs:
         tar -xvf premake.tar.gz --directory=/usr/bin
         chmod +x /usr/bin/premake5
     - uses: awalsh128/cache-apt-pkgs-action@latest
-        with:
-          packages: coreutils g++-multilib
-          version: 1.0
+      with:
+        packages: coreutils g++-multilib
+        version: 1.0
     - name: Generate Project
       run: |
         sudo premake5 --gmcommon=garrysmod_common gmake
