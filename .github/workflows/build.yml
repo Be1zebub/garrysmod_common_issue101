@@ -22,7 +22,6 @@ jobs:
     - name: Install Premake
       run: |
         wget -qO- https://github.com/premake/premake-core/releases/download/v5.0.0-beta2/premake-5.0.0-beta2-linux.tar.gz | sudo tar -xzm --no-same-owner --directory=/usr/bin
-        chmod +x /usr/bin/premake5
     - name: Generate Project
       run: |
         sudo premake5 --gmcommon=garrysmod_common gmake
