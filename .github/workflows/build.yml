@@ -24,12 +24,12 @@ jobs:
         wget -qO- https://github.com/premake/premake-core/releases/download/v5.0.0-beta2/premake-5.0.0-beta2-linux.tar.gz | sudo tar -xzm --no-same-owner --directory=/usr/bin
     - name: Generate Project
       run: |
-        sudo premake5 --gmcommon=garrysmod_common gmake
+        premake5 --gmcommon=garrysmod_common gmake
     - name: Make
       run: |
         cd projects/linux/gmake
-        sudo make
-        sudo make config=releasewithsymbols_x86_64
+        make
+        make config=releasewithsymbols_x86_64
     - uses: actions/upload-artifact@v4
       with:
         name: gmsv_cmdremover_linux.dll
