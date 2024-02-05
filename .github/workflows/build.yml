@@ -1,0 +1,43 @@
+name: Build
+
+on:
+  push:
+    branches: [ master ]
+  workflow_dispatch:
+
+jobs:
+  build-linux:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/checkout@v2
+      with:
+        submodules: recursive
+        repository: danielga/garrysmod_common
+        ref: x86-64-support-sourcesdk
+        path: 'garrysmod_common'
+    - name: Install Premake
+      run: |
+        wget https://github.com/premake/premake-core/releases/download/v5.0.0-beta2/premake-5.0.0-beta2-linux.tar.gz -O premake.tar.gz
+        sudo tar -xvf premake.tar.gz --directory=/usr/bin
+        sudo apt-get install coreutils
+        sudo chmod +x /usr/bin/premake5
+        sudo apt-get update
+        sudo apt-get install g++-multilib
+        gcc --version
+    - name: Generate Project
+      run: |
+        sudo premake5 --gmcommon=garrysmod_common gmake
+    - name: Make
+      run: |
+        cd projects/linux/gmake
+        sudo make
+        sudo make config=releasewithsymbols_x86_64
+    - uses: actions/upload-artifact@v2
+      with:
+        name: gmsv_cmdremover_linux.dll
+        path: projects/linux/gmake/x86/ReleaseWithSymbols/gmsv_cmdremover_linux.dll
+    - uses: actions/upload-artifact@v2
+      with:
+        name: gmsv_cmdremover_linux64.dll
+        path: projects/linux/gmake/x86_64/ReleaseWithSymbols/gmsv_cmdremover_linux64.dll
