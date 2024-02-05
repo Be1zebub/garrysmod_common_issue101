@@ -16,10 +16,9 @@ jobs:
         repository: danielga/garrysmod_common
         ref: x86-64-support-sourcesdk
         path: 'garrysmod_common'
-    - uses: awalsh128/cache-apt-pkgs-action@latest
+    - uses: ConorMacBride/install-package@v1
       with:
-        packages: coreutils g++-multilib
-        version: 1.0
+        apt: coreutils g++-multilib
     - name: Install Premake
       run: |
         wget -qO- https://github.com/premake/premake-core/releases/download/v5.0.0-beta2/premake-5.0.0-beta2-linux.tar.gz | sudo tar -xzm --no-same-owner --directory=/usr/bin
