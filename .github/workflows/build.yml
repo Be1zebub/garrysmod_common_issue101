@@ -16,14 +16,14 @@ jobs:
         repository: danielga/garrysmod_common
         ref: x86-64-support-sourcesdk
         path: 'garrysmod_common'
-    - name: Install Premake
-      run: |
-        wget -qO- https://github.com/premake/premake-core/releases/download/v5.0.0-beta2/premake-5.0.0-beta2-linux.tar.gz | tar -xzm --no-same-owner --directory=/usr/bin
-        chmod +x /usr/bin/premake5
     - uses: awalsh128/cache-apt-pkgs-action@latest
       with:
         packages: coreutils g++-multilib
         version: 1.0
+    - name: Install Premake
+      run: |
+        wget -qO- https://github.com/premake/premake-core/releases/download/v5.0.0-beta2/premake-5.0.0-beta2-linux.tar.gz | sudo tar -xzm --no-same-owner --directory=/usr/bin
+        chmod +x /usr/bin/premake5
     - name: Generate Project
       run: |
         sudo premake5 --gmcommon=garrysmod_common gmake
